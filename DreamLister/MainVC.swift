@@ -25,6 +25,8 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFe
         
         //deleteTestData()
         //generateTestData()
+        generateStoreList()
+        
         attemptFetch()
         // Do any additional setup after loading the view, typically from a nib.
     }
@@ -156,6 +158,30 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFe
             
         }
     }
+    
+    func generateStoreList() {
+        let fetchRequest: NSFetchRequest<Store> = Store.fetchRequest()
+        if let result = try? context.fetch(fetchRequest) {
+            if result.count < 1 {
+                
+            
+            let store = Store(context: context)
+            store.name = "Best Buy"
+            let store2 = Store(context: context)
+            store2.name = "Tesla Dealer"
+            let store3 = Store(context: context)
+            store3.name = "Apple Store"
+            let store4 = Store(context: context)
+            store4.name = "Target"
+            let store5 = Store(context: context)
+            store5.name = "Amazon"
+            let store6 = Store(context: context)
+            store6.name = "Radio Shack"
+            ad.saveContext()
+            }
+            }
+        }
+    
     func generateTestData() {
         let item = Item(context: context)
         item.title = "Tesla Model S"
@@ -172,6 +198,14 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFe
         item3.details = "I mean, it's nicer than a Kindle Fire"
         item3.price = 400
         ad.saveContext()
+    }
+    func deleteStoreList() {
+        let fetchRequest: NSFetchRequest<Store> = Store.fetchRequest()
+        if let result = try? context.fetch(fetchRequest) {
+            for object in result {
+                context.delete(object)
+            }
+        }
     }
     func deleteTestData() {
         let fetchRequest: NSFetchRequest<Item> = Item.fetchRequest()
